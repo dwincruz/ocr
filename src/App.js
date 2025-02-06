@@ -1,8 +1,6 @@
-import logo from "./logo.svg";
-import "./App.css";
-
 import React, { useRef, useState, useEffect } from "react";
 import Tesseract from "tesseract.js";
+import "./App.css";
 
 const App = () => {
   const videoRef = useRef(null);
@@ -16,7 +14,12 @@ const App = () => {
   const startCamera = async (mode) => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: mode }, // Switch between rear and front
+        video: {
+          facingMode: mode, // Switch between rear and front
+          width: { ideal: 720 }, // Adjust the ideal width for portrait mode
+          height: { ideal: 1280 }, // Adjust the ideal height for 9:16 ratio
+          aspectRatio: 9 / 16, // Set aspect ratio to 9:16
+        },
       });
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
@@ -104,31 +107,20 @@ const App = () => {
         flexWrap: "wrap",
       }}
     >
-      <div
-        className="video-container"
-        style={{
-          position: "relative",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "#f2f2f2",
-          height: "70dvh",
-          padding: "20px",
-        }}
-      >
+      <div className="video-container">
         <video
           ref={videoRef}
           autoPlay
           playsInline
           style={{
             width: "100%",
+            height: "100%", // Adjust the video to match the aspect ratio
             border: "2px solid #ccc",
             margin: "10px 0",
-            height: "100%",
           }}
         ></video>
       </div>
-      <div style={{ pading: "20px" }}>
+      <div style={{ padding: "20px" }}>
         <h1>Scan ABG</h1>
         {/* Switch Camera Button */}
         <button
