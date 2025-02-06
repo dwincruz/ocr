@@ -16,9 +16,9 @@ const App = () => {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: {
           facingMode: mode, // Switch between rear and front
-          width: { ideal: 720 }, // Adjust the ideal width for portrait mode
-          height: { ideal: 1280 }, // Adjust the ideal height for 9:16 ratio
-          aspectRatio: 9 / 16, // Set aspect ratio to 9:16
+          // width: { ideal: 720 }, // Adjust the ideal width for portrait mode
+          // height: { ideal: 1280 }, // Adjust the ideal height for 9:16 ratio
+          // aspectRatio: 9 / 16, // Set aspect ratio to 9:16
         },
       });
       if (videoRef.current) {
@@ -103,20 +103,26 @@ const App = () => {
         justifyContent: "center",
         alignItems: "center",
         flexWrap: "wrap",
+        padding: "10px",
       }}
     >
-      <div className="video-container">
-        <video
-          ref={videoRef}
-          autoPlay
-          playsInline
-          style={{
-            width: "100%",
-            height: "100%", // Adjust the video to match the aspect ratio
-            border: "2px solid #ccc",
-            margin: "10px 0",
-          }}
-        ></video>
+      <div>
+        <div className="video-container">
+          <video
+            ref={videoRef}
+            autoPlay
+            playsInline
+            style={{
+              width: "100%",
+              height: "100%", // Adjust the video to match the aspect ratio
+              border: "2px solid #ccc",
+              margin: "10px 0",
+            }}
+          ></video>
+        </div>
+        <div>
+          <p>Recommended: Document must be in a plain background </p>
+        </div>
       </div>
       <div style={{ padding: "20px" }}>
         <h1>Scan ABG</h1>
