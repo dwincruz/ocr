@@ -6,7 +6,28 @@
   height: 40vmin;
   pointer-events: none;
 }
-
+.video-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f2f2f2;
+  height: 70dvh;
+  padding: 20px;
+}
+.video-container::before {
+  position: absolute;
+  content: "Place the document within the border";
+  border: 2px dashed red;
+  z-index: 1;
+  color: white;
+  text-shadow: 2px 3px 5px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  width: 40%;
+  height: 80%;
+  display: flex;
+  place-items: center;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

@@ -101,37 +101,30 @@ const App = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        flexWrap: "wrap",
       }}
     >
       <div
+        className="video-container"
         style={{
           position: "relative",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           backgroundColor: "#f2f2f2",
+          height: "70dvh",
+          padding: "20px",
         }}
       >
-        <div
-          style={{
-            position: "absolute",
-            border: "3px dashed red",
-            height: "400px",
-            width: "300px",
-          }}
-        >
-          {" "}
-        </div>
-        {/* Video Stream */}
         <video
           ref={videoRef}
           autoPlay
           playsInline
           style={{
-            maxWidth: "100%",
+            width: "100%",
             border: "2px solid #ccc",
             margin: "10px 0",
-            height: "500px",
+            height: "100%",
           }}
         ></video>
       </div>
