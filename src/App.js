@@ -10,22 +10,25 @@ const App = () => {
   const [image, setImage] = useState(null);
   const [ocrResult, setOcrResult] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
+  const [cameraMode, setCameraMode] = useState("environment"); // Default: rear camera
+
+  // Function to start the camera
+  const startCamera = async (mode) => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: mode }, // Switch between rear and front
+      });
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+      }
+    } catch (err) {
+      console.error("Error accessing camera:", err);
+    }
+  };
 
   // Start the camera when the component mounts
   useEffect(() => {
-    const startCamera = async () => {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: true,
-        });
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-        }
-      } catch (err) {
-        console.error("Error accessing camera:", err);
-      }
-    };
-    startCamera();
+    startCamera(cameraMode);
 
     // Cleanup: Stop the camera when the component unmounts
     return () => {
@@ -33,7 +36,14 @@ const App = () => {
         videoRef.current.srcObject.getTracks().forEach((track) => track.stop());
       }
     };
-  }, []);
+  }, [cameraMode]); // Restart camera when mode changes
+
+  // Toggle between front and rear camera
+  const toggleCamera = () => {
+    setCameraMode((prevMode) =>
+      prevMode === "environment" ? "user" : "environment"
+    );
+  };
 
   // Capture photo
   const handleCapture = () => {
@@ -94,6 +104,23 @@ const App = () => {
         playsInline
         style={{ maxWidth: "100%", border: "2px solid #ccc", margin: "10px 0" }}
       ></video>
+      <br />
+
+      {/* Switch Camera Button */}
+      <button
+        onClick={toggleCamera}
+        style={{
+          padding: "10px 20px",
+          fontSize: "16px",
+          cursor: "pointer",
+          backgroundColor: "#007BFF",
+          color: "#fff",
+          border: "none",
+          marginBottom: "10px",
+        }}
+      >
+        Switch to {cameraMode === "environment" ? "Front" : "Rear"} Camera
+      </button>
       <br />
 
       {/* Capture Button */}
