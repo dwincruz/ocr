@@ -29,6 +29,7 @@
   height: 80%;
   display: flex;
   place-items: center;
+  text-align: center;
 }
 
 @media (max-width: 768px) {

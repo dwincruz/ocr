@@ -99,8 +99,6 @@ const App = () => {
   return (
     <section
       style={{
-        textAlign: "center",
-        marginTop: "20px",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
